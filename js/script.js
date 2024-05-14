@@ -4,7 +4,10 @@ let dxpTitle = "Titulo";
 let dxpPlacementHome = "home_page.dxp_categories_recs";
 let dxpPlacementCategories = "category_page.dxp_categories_recs";
 let categoryIdCode = '0';
+let apiKey = "e20fd45b1e19a8c6";
 let apiClientKey = "2a52873853496275";
+let sessionId = "";
+
 
 // Personalize
 function categoryClick(category_id,category_url){
@@ -35,7 +38,7 @@ function fetchCreatives() {
     var request = new XMLHttpRequest();
     const rcsValue = document.cookie.split("; ").find(row => row.startsWith(`rr_rcs=`));
     let dxpPlacement = "home_page.dxp_categories_01|home_page.dxp_categories_02|home_page.dxp_categories_03|home_page.dxp_categories_04|home_page.dxp_categories_05";
-    var url = "https://recs.algorecs.com/rrserver/api/personalize?apiKey=e20fd45b1e19a8c6&apiClientKey="+ apiClientKey +"&placements=" + dxpPlacement ;
+    var url = "https://recs.algorecs.com/rrserver/api/personalize?apiKey="+apiKey+"&apiClientKey="+ apiClientKey +"&placements=" + dxpPlacement ;
     if (typeof window.R3_COMMON != "undefined") {
         if (typeof window.R3_COMMON.categoryId != "undefined") {
             //url += "&categoryId=" + R3_COMMON.categoryId
@@ -91,9 +94,9 @@ function fetchProducts(categoryId) {
     var request = new XMLHttpRequest();
     const rcsValue = document.cookie.split("; ").find(row => row.startsWith(`rr_rcs=`));
     if(categoryId == 0){
-        var url = "https://recs.algorecs.com/rrserver/api/rrPlatform/recsForPlacements?apiKey=e20fd45b1e19a8c6" + "&apiClientKey="+ apiClientKey +"" + "&placements=" + dxpPlacementHome;
+        var url = "https://recs.algorecs.com/rrserver/api/rrPlatform/recsForPlacements?apiKey="+apiKey+"" + "&apiClientKey="+ apiClientKey +"" + "&placements=" + dxpPlacementHome;
     }else{
-        var url = "https://recs.algorecs.com/rrserver/api/rrPlatform/recsForPlacements?apiKey=e20fd45b1e19a8c6" + "&apiClientKey="+ apiClientKey +"" + "&placements=" + dxpPlacementCategories;
+        var url = "https://recs.algorecs.com/rrserver/api/rrPlatform/recsForPlacements?apiKey="+apiKey+"" + "&apiClientKey="+ apiClientKey +"" + "&placements=" + dxpPlacementCategories;
     }
     if(categoryId != "0"){
         url += "&categoryId=" + categoryId; 
@@ -163,8 +166,8 @@ function buildProducts(products) {
 function setCarousel(){
     let dxpInterval = setInterval(function () {
             clearInterval(dxpInterval);
-                const prevIcon = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l192 192c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256 246.6 86.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-192 192z"/></svg>';
-                const nextIcon = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M310.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-192 192c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L242.7 256 73.4 86.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l192 192z"/></svg>';
+                const prevIcon = '<img src="./img/prev.png" alt="" />';
+                const nextIcon = '<img src="./img/next.png" alt="" />';
                 var owl = $("#dxp-carrossel");
                 owl.owlCarousel({
                     loop: true,
