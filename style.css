@@ -51,7 +51,9 @@ margin: 0;
 
 
 }
-
+#dxp_categories > dd:hover{
+    background: #4c4c4c;
+}
 .categoryActive{
     background: #000000;
     color: #fff;
