@@ -1,5 +1,10 @@
+body{
+    width: 100%;
+    max-width: 1080px;
+    margin: 0 auto;
+}
 #dxp_template{
-    max-width: 1024px;
+    max-width: 910px;
     width: 100%;
     display: block;
     margin: 0 auto;
@@ -53,6 +58,8 @@ margin: 0;
 }
 #dxp_categories > dd:hover{
     background: #4c4c4c;
+    color: #ffffff;
+    transition: ease-in-out 0.4s;
 }
 .categoryActive{
     background: #000000;
@@ -107,4 +114,14 @@ a{
 #dxp-carrossel > div.owl-nav .owl-next{
     float: right;
     max-width: 25px;
+}
+#dxp-selector{
+    position: fixed;
+    top: 10px;
+    right:10%;
+    z-index: 99999;
+}
+#dxp-selector select{
+    border-radius: 5px;
+    width: 100px;
 }

@@ -3,17 +3,106 @@ let dxpElement = "dxp_recs";
 let dxpTitle = "Titulo";
 let dxpPlacementHome = "home_page.dxp_categories_recs";
 let dxpPlacementCategories = "category_page.dxp_categories_recs";
-let categoryIdCode = '0';
 let apiKey = "e20fd45b1e19a8c6";
 let apiClientKey = "2a52873853496275";
 let sessionId = "";
+let userId = "";
+
+
+function profileCheck(){
+    var profile  = localStorage.getItem('userId') || 'newUser';
+    console.log(profile);
+    switch(profile) {
+        case "userHome":
+            document.getElementById("userHome").selected = true;
+        break;
+        case "userBeauty":
+            document.getElementById("userBeauty").selected = true;
+        break;
+        case "userMen":
+            document.getElementById("userMen").selected = true;
+        break;
+        case "userWomen":
+            document.getElementById("userWomen").selected = true;
+        break;
+        case "userEletronics":
+            document.getElementById("userEletronics").selected = true;
+        break;
+        case "userShoes":
+            document.getElementById("userShoes").selected = true;
+        break;
+        case "userKids":
+            document.getElementById("userKids").selected = true;
+        break;
+        case "userGeek":
+            document.getElementById("userGeek").selected = true;
+        break;
+        default:
+            document.getElementById("newUser").selected = true;
+    }
+    }
+        function refreshProfile(){
+            var profileSelected = document.getElementById("profiles").value || '';
+            switch(profileSelected) {
+                case "userHome":
+                    localStorage.setItem('userId', "userHome");
+                    localStorage.setItem('sessionId', "sessionHome");
+                    localStorage.setItem('rr_rcs','');
+                    break;
+                case "userBeauty":
+                    localStorage.setItem('userId', "userBeauty");
+                    localStorage.setItem('sessionId', "sessionBeauty");
+                    localStorage.setItem('rr_rcs','');
+                    break;
+                case "userMen":
+                    localStorage.setItem('userId', "userMen");
+                    localStorage.setItem('sessionId', "sessionMen");
+                    localStorage.setItem('rr_rcs','');
+                    break;
+                case "userWomen":
+                    localStorage.setItem('userId', "userWomen");
+                    localStorage.setItem('sessionId', "sessionWomen");
+                    localStorage.setItem('rr_rcs','');
+                    break;
+                case "userEletronics":
+                    localStorage.setItem('userId', "userEletronics");
+                    localStorage.setItem('sessionId', "sessionEletronics");
+                    localStorage.setItem('rr_rcs','');
+                    break;
+                case "userShoes":
+                    localStorage.setItem('userId', "userShoes");
+                    localStorage.setItem('sessionId', "sessionShoes");
+                    localStorage.setItem('rr_rcs','');
+                    break;
+                case "userKids":
+                    localStorage.setItem('userId', "userKids");
+                    localStorage.setItem('sessionId', "sessionKids");
+                    localStorage.setItem('rr_rcs','');
+                    break;
+                    break;
+                case "userGeek":
+                    localStorage.setItem('userId', "userGeek");
+                    localStorage.setItem('sessionId', "sessionGeek");
+                    localStorage.setItem('rr_rcs','');
+                    break;
+                case "newUser":
+                    let rand = (Math.random() + 1).toString(36).substring(7);
+                    localStorage.setItem('userId', "user-"+rand);
+                    localStorage.setItem('sessionId', "session-"+rand);
+                    localStorage.setItem('rr_rcs','');
+                    break;
+                default:
+                    console.log("Erro");
+            }
+            location.reload()
+        }
 
 
 // Personalize
 function categoryClick(category_id,category_url){
+    console.log(category_id,category_url);
     injectCarousel(category_id);
-    console.log(category_id);
-    console.log(category_url);
+
 
     var lista = document.getElementsByClassName("categoryActive");
     for(var i = lista.length - 1; i >= 0; i--)
@@ -37,9 +126,11 @@ function buildCreatives(creativesJson) {
 function fetchCreatives() {
     var request = new XMLHttpRequest();
     const rcsValue = document.cookie.split("; ").find(row => row.startsWith(`rr_rcs=`));
+    let userId =  localStorage.getItem('userId') || 'newUser';
+    let sessionId = localStorage.getItem('sessionId') || 'newSession';
     let dxpPlacement = "home_page.dxp_categories_01|home_page.dxp_categories_02|home_page.dxp_categories_03|home_page.dxp_categories_04|home_page.dxp_categories_05";
-    var url = "https://recs.algorecs.com/rrserver/api/personalize?apiKey="+apiKey+"&apiClientKey="+ apiClientKey +"&placements=" + dxpPlacement ;
-    if (typeof window.R3_COMMON != "undefined") {
+    var url = "https://recs.algorecs.com/rrserver/api/personalize?apiKey="+apiKey+"&apiClientKey="+ apiClientKey +"&placements=" + dxpPlacement+"&userId=" + userId + "&sessionId="+ sessionId ;
+/*     if (typeof window.R3_COMMON != "undefined") {
         if (typeof window.R3_COMMON.categoryId != "undefined") {
             //url += "&categoryId=" + R3_COMMON.categoryId
         }
@@ -56,7 +147,7 @@ function fetchCreatives() {
         }
     } else {
         url += "&sessionId=test"
-    }
+    } */
     request.open("GET", url);
     request.send(null);
 
@@ -90,18 +181,20 @@ function startCreatives() {
 
 // Recs For Placements
 function fetchProducts(categoryId) {
-    console.log(categoryId);
+    let userId =  localStorage.getItem('userId') || 'newUser';
+    let sessionId = localStorage.getItem('sessionId') || 'newSession';
     var request = new XMLHttpRequest();
     const rcsValue = document.cookie.split("; ").find(row => row.startsWith(`rr_rcs=`));
+    console.log(categoryId);
     if(categoryId == 0){
-        var url = "https://recs.algorecs.com/rrserver/api/rrPlatform/recsForPlacements?apiKey="+apiKey+"" + "&apiClientKey="+ apiClientKey +"" + "&placements=" + dxpPlacementHome;
+        var url = "https://recs.algorecs.com/rrserver/api/rrPlatform/recsForPlacements?apiKey="+apiKey+"" + "&apiClientKey="+ apiClientKey +"" + "&placements=" + dxpPlacementHome + "&userId="+userId+"&sessionId="+sessionId+"&rcs="+rcsValue;
     }else{
-        var url = "https://recs.algorecs.com/rrserver/api/rrPlatform/recsForPlacements?apiKey="+apiKey+"" + "&apiClientKey="+ apiClientKey +"" + "&placements=" + dxpPlacementCategories;
+        var url = "https://recs.algorecs.com/rrserver/api/rrPlatform/recsForPlacements?apiKey="+apiKey+"" + "&apiClientKey="+ apiClientKey +"" + "&placements=" + dxpPlacementCategories + "&userId="+userId+"&sessionId="+sessionId+"&rcs="+rcsValue;
     }
     if(categoryId != "0"){
         url += "&categoryId=" + categoryId; 
     }
-    if (typeof window.R3_COMMON != "undefined") {
+/*     if (typeof window.R3_COMMON != "undefined") {
         if (typeof window.R3_COMMON.categoryId != "undefined") {
             url += "&categoryId=" + R3_COMMON.categoryId
         }
@@ -118,7 +211,7 @@ function fetchProducts(categoryId) {
         }
     } else {
         url += "&sessionId=test"
-    }
+    } */
     request.open("GET", url);
     request.send(null);
 
@@ -214,6 +307,7 @@ function setCarousel(){
 }
 
 function injectCarousel(categoryId) {
+    console.log(categoryId);
     fetchProducts(categoryId);
     setCarousel()
 }
@@ -222,11 +316,14 @@ function injectCarousel(categoryId) {
 // Initialize Experience
 if (document.readyState !== 'loading') {
     startCreatives();
+    var categoryIdCode = '0';
+    console.log(categoryIdCode);
     injectCarousel(categoryIdCode);
     if (injectCarousel && typeof injectCarousel == 'function') {
         setCarousel()
     }
 } else {
-    document.addEventListener('DOMContentLoaded', injectCarousel);
+    var categoryIdCode = '0';
+    document.addEventListener('DOMContentLoaded', injectCarousel(categoryIdCode));
     document.addEventListener('DOMContentLoaded', startCreatives);
 }
