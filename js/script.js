@@ -9,7 +9,8 @@ let apiClientKey = "2a52873853496275";
 let sessionId = "";
 let userId = "";
 
-if (screen.width < 400 ) {
+if (screen.width < 500 ) {
+    console.log('é mob');
     dxpEngagePlacements = "home_page.dxp_categories_01|home_page.dxp_categories_02|home_page.dxp_categories_03";
 } 
 
