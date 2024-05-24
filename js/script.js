@@ -1,12 +1,17 @@
  // Variables
 let dxpElement = "dxp_recs";
 let dxpTitle = "Titulo";
+let dxpEngagePlacements = "home_page.dxp_categories_01|home_page.dxp_categories_02|home_page.dxp_categories_03|home_page.dxp_categories_04|home_page.dxp_categories_05";
 let dxpPlacementHome = "home_page.dxp_categories_recs";
 let dxpPlacementCategories = "category_page.dxp_categories_recs";
 let apiKey = "e20fd45b1e19a8c6";
 let apiClientKey = "2a52873853496275";
 let sessionId = "";
 let userId = "";
+
+if (screen.width < 400 ) {
+    dxpEngagePlacements = "home_page.dxp_categories_01|home_page.dxp_categories_02|home_page.dxp_categories_03";
+} 
 
 
 function profileCheck(){
@@ -128,8 +133,7 @@ function fetchCreatives() {
     const rcsValue = document.cookie.split("; ").find(row => row.startsWith(`rr_rcs=`));
     let userId =  localStorage.getItem('userId') || 'newUser';
     let sessionId = localStorage.getItem('sessionId') || 'newSession';
-    let dxpPlacement = "home_page.dxp_categories_01|home_page.dxp_categories_02|home_page.dxp_categories_03|home_page.dxp_categories_04|home_page.dxp_categories_05";
-    var url = "https://recs.algorecs.com/rrserver/api/personalize?apiKey="+apiKey+"&apiClientKey="+ apiClientKey +"&placements=" + dxpPlacement+"&userId=" + userId + "&sessionId="+ sessionId ;
+    var url = "https://recs.algorecs.com/rrserver/api/personalize?apiKey="+apiKey+"&apiClientKey="+ apiClientKey +"&placements=" + dxpEngagePlacements+"&userId=" + userId + "&sessionId="+ sessionId ;
 /*     if (typeof window.R3_COMMON != "undefined") {
         if (typeof window.R3_COMMON.categoryId != "undefined") {
             //url += "&categoryId=" + R3_COMMON.categoryId
