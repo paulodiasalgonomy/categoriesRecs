@@ -43,6 +43,9 @@ function profileCheck(){
         case "userGeek":
             document.getElementById("userGeek").selected = true;
         break;
+        case "userMaes":
+            document.getElementById("userMaes").selected = true;
+        break;
         default:
             document.getElementById("newUser").selected = true;
     }
@@ -89,6 +92,11 @@ function profileCheck(){
                 case "userGeek":
                     localStorage.setItem('userId', "userGeek");
                     localStorage.setItem('sessionId', "sessionGeek");
+                    localStorage.setItem('rr_rcs','');
+                    break;
+                case "userMaes":
+                    localStorage.setItem('userId', "userMaes");
+                    localStorage.setItem('sessionId', "sessionMaes");
                     localStorage.setItem('rr_rcs','');
                     break;
                 case "newUser":
@@ -272,7 +280,7 @@ function setCarousel(){
                     items: 4,
                     lazyLoad: true,
                     nav: true,
-                    margin: 5,
+                    margin: 12,
                     padding: 0,
                     navText: [
                         prevIcon,
@@ -303,7 +311,7 @@ function setCarousel(){
                         900: {
                             items: 4,
                             nav: true,
-                            dots: true,
+                            dots: false,
                             autoplay: true
                         }
                     }
